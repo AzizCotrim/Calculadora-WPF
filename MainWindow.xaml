@@ -1,0 +1,32 @@
+﻿<Window x:Class="Calculadora.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculadora"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="750" Width="450">
+    <Grid>
+        <Button x:Name="Button0" Content="0" HorizontalAlignment="Left" Height="80" Margin="29,617,0,0" VerticalAlignment="Top" Width="184" Click="Button0_Click"/>
+        <Button x:Name="ButtonDecimal" Content="," HorizontalAlignment="Left" Height="80" Margin="235,617,0,0" VerticalAlignment="Top" Width="80" Click="ButtonDecimal_Click"/>
+        <Button x:Name="ButtonTotal" Content="=" HorizontalAlignment="Left" Height="80" Margin="339,617,0,0" VerticalAlignment="Top" Width="80" Click="ButtonTotal_Click"/>
+        <Button x:Name="Button1" Content="1" HorizontalAlignment="Left" Height="80" Margin="29,525,0,0" VerticalAlignment="Top" Width="80" Click="Button1_Click"/>
+        <Button x:Name="Button2" Content="2" HorizontalAlignment="Left" Height="80" Margin="133,525,0,0" VerticalAlignment="Top" Width="80" Click="Button2_Click"/>
+        <Button x:Name="ButtonPlus" Content="+" HorizontalAlignment="Left" Height="80" Margin="339,525,0,0" VerticalAlignment="Top" Width="80" Click="ButtonPlus_Click"/>
+        <Button x:Name="Button3" Content="3" HorizontalAlignment="Left" Height="80" Margin="235,525,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.508,0.556" Click="Button3_Click"/>
+        <Button x:Name="Button4" Content="4" HorizontalAlignment="Left" Height="80" Margin="29,435,0,0" VerticalAlignment="Top" Width="80" Click="Button4_Click"/>
+        <Button x:Name="Button5" Content="5" HorizontalAlignment="Left" Height="80" Margin="133,435,0,0" VerticalAlignment="Top" Width="80" Click="Button5_Click"/>
+        <Button x:Name="ButtonMinus" Content="-" HorizontalAlignment="Left" Height="80" Margin="339,435,0,0" VerticalAlignment="Top" Width="80" Click="ButtonMinus_Click"/>
+        <Button x:Name="Button6" Content="6" HorizontalAlignment="Left" Height="80" Margin="235,435,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.508,0.556" Click="Button6_Click"/>
+        <Button x:Name="Button7" Content="7" HorizontalAlignment="Left" Height="80" Margin="29,347,0,0" VerticalAlignment="Top" Width="80" Click="Button7_Click"/>
+        <Button x:Name="Button8" Content="8" HorizontalAlignment="Left" Height="80" Margin="133,347,0,0" VerticalAlignment="Top" Width="80" Click="Button8_Click"/>
+        <Button x:Name="ButtonMulti" Content="X" HorizontalAlignment="Left" Height="80" Margin="339,347,0,0" VerticalAlignment="Top" Width="80" Click="ButtonMulti_Click"/>
+        <Button x:Name="Button9" Content="9" HorizontalAlignment="Left" Height="80" Margin="235,347,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.508,0.556" Click="Button9_Click"/>
+        <Button x:Name="ButtonClean" Content="AC" HorizontalAlignment="Left" Height="80" Margin="29,257,0,0" VerticalAlignment="Top" Width="80" Click="ButtonClean_Click"/>
+        <Button x:Name="ButtonParent" Content="( )" HorizontalAlignment="Left" Height="80" Margin="133,257,0,0" VerticalAlignment="Top" Width="80" Click="ButtonParent_Click"/>
+        <Button x:Name="ButtonDiv" Content="/" HorizontalAlignment="Left" Height="80" Margin="339,257,0,0" VerticalAlignment="Top" Width="80" Click="ButtonDiv_Click"/>
+        <Button x:Name="ButtonPerCent" Content="%" HorizontalAlignment="Left" Height="80" Margin="235,257,0,0" VerticalAlignment="Top" Width="80" RenderTransformOrigin="0.508,0.556" Click="ButtonPerCent_Click"/>
+        <Label x:Name="Display" Content="" HorizontalAlignment="Center" Height="184" Margin="0,44,0,0" VerticalAlignment="Top" Width="388" BorderBrush="Black" BorderThickness="1,1,1,1" FontSize="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+    </Grid>
+</Window>
