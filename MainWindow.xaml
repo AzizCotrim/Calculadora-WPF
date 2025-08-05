@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculadora"
         mc:Ignorable="d"
-        Title="MainWindow" Height="750" Width="450">
+        Title="Calculadora" Height="750" Width="450"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
         <Button x:Name="Button0" Content="0" HorizontalAlignment="Left" Height="80" Margin="29,617,0,0" VerticalAlignment="Top" Width="184" Click="Button0_Click"/>
         <Button x:Name="ButtonDecimal" Content="," HorizontalAlignment="Left" Height="80" Margin="235,617,0,0" VerticalAlignment="Top" Width="80" Click="ButtonDecimal_Click"/>

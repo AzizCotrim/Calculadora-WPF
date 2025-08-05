@@ -142,6 +142,7 @@ namespace Calculadora
         }
 
         private string Div(decimal x, decimal y) {
+            if(y == 0) return "ERRO";
             decimal t = x / y;
             return t.ToString(new CultureInfo("pt-BR"));
         }
