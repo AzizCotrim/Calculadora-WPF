@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using System.Globalization;
+using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Globalization;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxTokenParser;
 
 namespace Calculadora
 {
@@ -91,29 +95,53 @@ namespace Calculadora
         }
 
         private void ButtonTotal_Click(object sender, RoutedEventArgs e) {
-            char[] operadores = ['+', '-', '*', '/'];
+            string padrao = @"([*\/+\-])";
             string display = Display.Content.ToString();
-            var result = display.FirstOrDefault(x => operadores.Contains(x));
+            display = display.Replace(',','.');
 
-            string[] separado = display.Split(operadores);
-            decimal[] numeros = separado.Select(s => decimal.Parse(s ,new CultureInfo("pt-BR"))).ToArray();
-            switch (result) {
-                case '+':
-                    Display.Content = Soma(numeros[0], numeros[1]);
-                    break;
+            List<string> tokens = Regex.Split(display, padrao)
+                                       .Where(s => !string.IsNullOrEmpty(s))
+                                       .ToList();
+            for (int i = 0; i < tokens.Count(); i++) {
+                if (tokens[i] == "*") {
+                    decimal x = decimal.Parse(tokens[i - 1]);
+                    decimal y = decimal.Parse(tokens[i + 1]);
 
-                case '-':
-                    Display.Content = Sub(numeros[0], numeros[1]);
-                    break;
+                    string result = Mult(x, y);
 
-                case '*':
-                    Display.Content = Mult(numeros[0], numeros[1]);
-                    break;
+                    tokens.RemoveAt(i + 1);
+                    tokens.RemoveAt(i);
+                    tokens.RemoveAt(i - 1);
 
-                case '/':
-                    Display.Content = Div(numeros[0], numeros[1]);
-                    break;
+                    tokens.Insert(i - 1, result);
+
+                    i = -1;
+
+                }else if (tokens[i] == "/") {
+                    decimal x = decimal.Parse(tokens[i - 1]);
+                    decimal y = decimal.Parse(tokens[i + 1]);
+
+                    if (y == 0)
+                        return;
+
+                    string result = Div(x, y);
+
+                    tokens.RemoveAt(i+1);
+                    tokens.RemoveAt(i);
+                    tokens.RemoveAt(i-1);
+
+                    tokens.Insert(i - 1, result);
+
+                    i = -1;
+
+                } 
             }
+
+            for (int i = 0; i < tokens.Count(); i++) {
+
+            }
+
+            Display.Content = tokens[0].Replace('.', ',');
         }
 
         private void ButtonClean_Click(object sender, RoutedEventArgs e) {
