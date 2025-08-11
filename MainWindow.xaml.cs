@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxTokenParser;
 
 namespace Calculadora
 {
@@ -95,19 +94,24 @@ namespace Calculadora
         }
 
         private void ButtonTotal_Click(object sender, RoutedEventArgs e) {
-            string padrao = @"([*\/+\-])";
+            string padrao = @"(?<=[*\/+\-])|(?=[*\/+\-])";
             string display = Display.Content.ToString();
             display = display.Replace(',','.');
 
             List<string> tokens = Regex.Split(display, padrao)
                                        .Where(s => !string.IsNullOrEmpty(s))
                                        .ToList();
+            
+            foreach(string x in tokens) {
+                TestList.Content += $"{x},";
+            }
+
             for (int i = 0; i < tokens.Count(); i++) {
                 if (tokens[i] == "*") {
                     decimal x = decimal.Parse(tokens[i - 1]);
                     decimal y = decimal.Parse(tokens[i + 1]);
 
-                    string result = Mult(x, y);
+                    string result = Mult(x, y).ToString();
 
                     tokens.RemoveAt(i + 1);
                     tokens.RemoveAt(i);
@@ -124,7 +128,7 @@ namespace Calculadora
                     if (y == 0)
                         return;
 
-                    string result = Div(x, y);
+                    string result = Div(x, y).ToString();
 
                     tokens.RemoveAt(i+1);
                     tokens.RemoveAt(i);
@@ -138,7 +142,38 @@ namespace Calculadora
             }
 
             for (int i = 0; i < tokens.Count(); i++) {
+                if (tokens[i] == "+") {
+                    decimal x = decimal.Parse(tokens[i - 1]);
+                    decimal y = decimal.Parse(tokens[i + 1]);
 
+                    string result = Soma(x, y).ToString();
+
+                    tokens.RemoveAt(i + 1);
+                    tokens.RemoveAt(i);
+                    tokens.RemoveAt(i - 1);
+
+                    tokens.Insert(i - 1, result);
+
+                    i = -1;
+
+                } else if (tokens[i] == "-") {
+                    decimal x = decimal.Parse(tokens[i - 1]);
+                    decimal y = decimal.Parse(tokens[i + 1]);
+
+                    if (y == 0)
+                        return;
+
+                    string result = Sub(x, y).ToString();
+
+                    tokens.RemoveAt(i + 1);
+                    tokens.RemoveAt(i);
+                    tokens.RemoveAt(i - 1);
+
+                    tokens.Insert(i - 1, result);
+
+                    i = -1;
+
+                }
             }
 
             Display.Content = tokens[0].Replace('.', ',');
@@ -154,25 +189,24 @@ namespace Calculadora
             Display.Content = content;
         }
 
-        private string Soma(decimal x, decimal y) {
+        private decimal Soma(decimal x, decimal y) {
             decimal t = x + y;
-            return t.ToString(new CultureInfo("pt-BR"));
+            return t;
         }
 
-        private string Sub(decimal x, decimal y) {
+        private decimal Sub(decimal x, decimal y) {
             decimal t = x - y;
-            return t.ToString(new CultureInfo("pt-BR"));
+            return t;
         }
 
-        private string Mult(decimal x, decimal y) {
+        private decimal Mult(decimal x, decimal y) {
             decimal t = x * y;
-            return t.ToString(new CultureInfo("pt-BR"));
+            return t;
         }
 
-        private string Div(decimal x, decimal y) {
-            if(y == 0) return "ERRO";
+        private decimal Div(decimal x, decimal y) {
             decimal t = x / y;
-            return t.ToString(new CultureInfo("pt-BR"));
+            return t;
         }
     }
 }
